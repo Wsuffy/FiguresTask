@@ -1,6 +1,6 @@
-﻿using Task.Implementation;
+﻿using Task.Domain;
+using Task.Implementation;
 using Task.Implementation.Figures;
-using Task.Utils.Exceptions;
 
 namespace MindBoxTask;
 
@@ -10,10 +10,9 @@ public class ShapeFactoryTests
     [Test]
     public void CreateFigure_Circle_ReturnsCircle()
     {
-        var figureName = "circle";
         var radius = 5;
 
-        var figure = ShapeFactory.CreateFigure(figureName, radius);
+        var figure = ShapeFactory.CreateFigure(FigureDefaults.CIRCLE, radius);
 
         var circle = figure as Circle;
         
@@ -27,11 +26,10 @@ public class ShapeFactoryTests
     [Test]
     public void CreateFigure_Rectangle_ReturnsRectangle()
     {
-        var figureName = "rectangle";
         var width = 4;
         var height = 5;
 
-        var figure = ShapeFactory.CreateFigure(figureName, width, height);
+        var figure = ShapeFactory.CreateFigure(FigureDefaults.RECTANGLE, width, height);
 
         var rectangle = figure as Rectangle;
 
@@ -46,12 +44,11 @@ public class ShapeFactoryTests
     [Test]
     public void CreateFigure_Triangle_ReturnsTriangle()
     {
-        var figureName = "triangle";
         var sideA = 3;
         var sideB = 4;
         var sideC = 5;
 
-        var figure = ShapeFactory.CreateFigure(figureName, sideA, sideB, sideC);
+        var figure = ShapeFactory.CreateFigure(FigureDefaults.TRIANGLE, sideA, sideB, sideC);
 
         var triangle = figure as Triangle;
 
@@ -70,34 +67,31 @@ public class ShapeFactoryTests
         var figureName = "hexagon";
         var parameters = new double[] { 1, 2, 3, 4, 5, 6 };
 
-        Assert.Throws<TaskExceptionWithLog>(() => ShapeFactory.CreateFigure(figureName, parameters));
+        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(figureName, parameters));
     }
 
     [Test]
     public void CreateFigure_InvalidCircleParameters_ThrowsException()
     {
-        var figureName = "circle";
         var parameters = new double[] { 1, 2 };
 
-        Assert.Throws<TaskExceptionWithLog>(() => ShapeFactory.CreateFigure(figureName, parameters));
+        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.CIRCLE, parameters));
     }
 
     [Test]
     public void CreateFigure_InvalidRectangleParameters_ThrowsException()
     {
-        var figureName = "rectangle";
         var parameters = new double[] { 1 };
 
-        Assert.Throws<TaskExceptionWithLog>(() => ShapeFactory.CreateFigure(figureName, parameters));
+        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.RECTANGLE, parameters));
     }
 
     [Test]
     public void CreateFigure_InvalidTriangleParameters_ThrowsException()
     {
-        var figureName = "triangle";
         var parameters = new double[] { 1, 2 };
         
-        Assert.Throws<TaskExceptionWithLog>(() => ShapeFactory.CreateFigure(figureName, parameters));
+        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.TRIANGLE, parameters));
     }
 }
 

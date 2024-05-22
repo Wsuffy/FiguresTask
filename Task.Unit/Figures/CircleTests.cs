@@ -1,30 +1,25 @@
 using Task.Implementation.Figures;
-using Task.Utils.Exceptions;
 
 namespace MindBoxTask.Figures;
 
 [TestFixture]
 public class CircleTests
 {
-    [SetUp]
-    public void Setup()
+    [TestCase(5)]
+    public void Circle_CalculateArea_ReturnsCorrectValue(double radius)
     {
-    }
+        var circleArea = Math.PI * Math.Pow(radius, 2);
 
-    [Test]
-    public void Circle_CalculateArea_ReturnsCorrectValue()
-    {
-        const int r = 5;
-        var circleArea = Math.PI * Math.Pow(r, 2);
-
-        var circle = new Circle(r);
+        var circle = new Circle(radius);
 
         Assert.That(circleArea, Is.EqualTo(circle.CalculateArea()));
     }
-    
-    [Test]
-    public void Constructor_ThrowsExceptionWithIncorrectVariables()
+
+    [TestCase(0)]
+    [TestCase(-1)]
+    [TestCase(-100)]
+    public void Constructor_ThrowsExceptionWithIncorrectVariables(double radius)
     {
-        Assert.Throws<TaskExceptionWithLog>(() => { new Circle(0); });
+        Assert.Throws<ArgumentException>(() => { new Circle(radius); });
     }
 }

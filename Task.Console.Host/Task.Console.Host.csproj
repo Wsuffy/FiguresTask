@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Task.Domain\Task.Domain.csproj" />
       <ProjectReference Include="..\Task.Implementation\Task.Implementation.csproj" />
     </ItemGroup>
 

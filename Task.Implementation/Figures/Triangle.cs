@@ -1,57 +1,24 @@
 ﻿using Task.Abstractions;
-using Task.Utils.Exceptions;
 
 namespace Task.Implementation.Figures;
 
 public class Triangle : IFigure
 {
-    private double _sideA;
-    private double _sideB;
-    private double _sideC;
+    public readonly double SideA;
 
-    public double SideA
-    {
-        get { return _sideA; }
-        private set
-        {
-            if (value <= 0)
-                throw new TaskExceptionWithLog("Side length must be positive");
-            _sideA = value;
-        }
-    }
+    public readonly double SideB;
 
-    public double SideB
-    {
-        get => _sideB;
-        private set
-        {
-            if (value <= 0)
-                throw new TaskExceptionWithLog("Side length must be positive");
-            _sideB = value;
-        }
-    }
-
-    public double SideC
-    {
-        get => _sideC;
-        private set
-        {
-            if (value <= 0)
-                throw new TaskExceptionWithLog("Side length must be positive");
-            _sideC = value;
-        }
-    }
+    public readonly double SideC;
 
     public Triangle(double sideA, double sideB, double sideC)
     {
-        _sideA = sideA;
-        _sideB = sideB;
-        _sideC = sideC;
-        
+        SideA = sideA;
+        SideB = sideB;
+        SideC = sideC;
+
         if (!IsValidTriangle())
-        {
-            throw new TaskExceptionWithLog("You try to create wrong triangle");
-        }
+            throw new ArgumentException("You try to create wrong triangle, the sum of 2 side more then 3-rd",
+                $"{nameof(sideA)} or {nameof(sideB)} or {nameof(sideC)}");
     }
 
     public double CalculateArea()
@@ -60,19 +27,13 @@ public class Triangle : IFigure
         return Math.Sqrt(halfPerimeter * (halfPerimeter - SideA) * (halfPerimeter - SideB) * (halfPerimeter - SideC));
     }
 
-    public bool IsRightAngeled()
+    public bool IsRightAngele()
     {
-        var sideList = new List<double> { SideA, SideB, SideC };
+        var sideList = new List<double>(3) { SideA, SideB, SideC };
         sideList.Sort();
 
-        if (Math.Pow(sideList[0], 2) + Math.Pow(sideList[1], 2) == Math.Pow(sideList[2], 2))
-            return true;
-
-        return false;
+        return Math.Pow(sideList[0], 2) + Math.Pow(sideList[1], 2) == Math.Pow(sideList[2], 2);
     }
 
-    private bool IsValidTriangle()
-    {
-        return SideA + SideB > SideC && SideA + SideC > SideB && SideB + SideC > SideA;
-    }
+    private bool IsValidTriangle() => SideA + SideB > SideC && SideA + SideC > SideB && SideB + SideC > SideA;
 }

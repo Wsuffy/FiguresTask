@@ -1,37 +1,47 @@
 ﻿using Task.Abstractions;
+using Task.Domain;
 using Task.Implementation.Figures;
-using Task.Utils.Exceptions;
 
 namespace Task.Implementation;
 
 public static class ShapeFactory
 {
+    private static readonly IReadOnlyDictionary<string, Func<double[], IFigure>> _figureDictionary =
+        new Dictionary<string, Func<double[], IFigure>>()
+        {
+            {
+                FigureDefaults.CIRCLE, doubles =>
+                {
+                    if (doubles.Length != 1)
+                        throw new ArgumentException($"Can't create a {FigureDefaults.CIRCLE}", nameof(doubles));
+                    return new Circle(doubles.First());
+                }
+            },
+            {
+                FigureDefaults.RECTANGLE, doubles =>
+                {
+                    if (doubles.Length != 2)
+                        throw new ArgumentException($"Can't create a {FigureDefaults.RECTANGLE}", nameof(doubles));
+                    return new Rectangle(doubles[0], doubles[1]);
+                }
+            },
+            {
+                FigureDefaults.TRIANGLE, doubles =>
+                {
+                    if (doubles.Length != 3)
+                        throw new ArgumentException($"Can't create a {FigureDefaults.TRIANGLE}", nameof(doubles));
+                    return new Triangle(doubles[0], doubles[1], doubles[2]);
+                }
+            }
+        };
+
     public static IFigure CreateFigure(string figureName, params double[] parameters)
     {
-        switch (figureName.ToLower())
-        {
-            case "circle":
-            {
-                if (parameters.Length == 1)
-                    return new Circle(parameters.First());
-                break;
-            }
+        var isFactoryExists = _figureDictionary.TryGetValue(figureName, out var factory);
+        
+        if (!isFactoryExists)
+            throw new ArgumentException("Wrong figure type or parameters",nameof(figureName));
 
-            case "rectangle":
-            {
-                if (parameters.Length == 2)
-                    return new Rectangle(parameters.First(), parameters.Last());
-                break;
-            }
-
-            case "triangle":
-            {
-                if (parameters.Length == 3)
-                    return new Triangle(parameters[0], parameters[1], parameters[2]);
-                break;
-            }
-        }
-
-        throw new TaskExceptionWithLog("Wrong figure type or parameters");
+        return factory!.Invoke(parameters);
     }
 }

@@ -1,25 +1,16 @@
 ﻿using Task.Abstractions;
-using Task.Utils.Exceptions;
 
 namespace Task.Implementation.Figures;
 
 public class Circle : IFigure
 {
-    private double _radius;
-
-    public double Radius
-    {
-        get => _radius;
-        private set
-        {
-            if (value <= 0)
-                throw new TaskExceptionWithLog("Radius must be positive");
-            _radius = value;
-        }
-    }
+    public readonly double Radius;
 
     public Circle(double radius)
     {
+        if (radius <= 0)
+            throw new ArgumentException("You try to create wrong circle, your radius is less or equal 0",
+                nameof(radius));
         Radius = radius;
     }
 

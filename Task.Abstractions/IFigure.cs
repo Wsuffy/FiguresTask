@@ -1,11 +1,6 @@
-﻿using Task.Utils.Exceptions;
-
-namespace Task.Abstractions;
+﻿namespace Task.Abstractions;
 
 public interface IFigure
 {
-    public virtual double CalculateArea()
-    {
-        throw new TaskExceptionWithLog("This method is not implemented");
-    }
+    public double CalculateArea();
 }

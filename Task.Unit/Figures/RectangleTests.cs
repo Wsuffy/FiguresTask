@@ -1,28 +1,26 @@
 ﻿using Task.Implementation.Figures;
-using Task.Utils.Exceptions;
 
 namespace MindBoxTask.Figures;
 
 [TestFixture]
 public class RectangleTests
 {
-    [SetUp]
-    public void Setup()
+    [TestCase(3, 4)]
+    [TestCase(5, 11)]
+    [TestCase(8, 4)]
+    public void Rectangle_CalculateArea_ReturnsCorrectValue(double sideA, double sideB)
     {
-    }
-
-    [Test]
-    public void Rectangle_CalculateArea_ReturnsCorrectValue()
-    {
-        var rectangle = new Rectangle(3, 4);
-        const int rectangleArea = 12;
+        var rectangle = new Rectangle(sideA, sideB);
+        var rectangleArea = sideA * sideB;
 
         Assert.That(rectangle.CalculateArea(), Is.EqualTo(rectangleArea));
     }
 
-    [Test]
-    public void Constructor_ThrowsExceptionWithIncorrectVariables()
+    [TestCase(0,4)]
+    [TestCase(2,-1)]
+    [TestCase(-42,-11)]
+    public void Constructor_ThrowsExceptionWithIncorrectVariables(double sideA, double sideB)
     {
-        Assert.Throws<TaskExceptionWithLog>(() => { new Rectangle(0, 4); });
+        Assert.Throws<ArgumentException>(() => { new Rectangle(sideA, sideB); });
     }
 }
