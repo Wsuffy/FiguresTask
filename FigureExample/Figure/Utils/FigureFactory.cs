@@ -1,10 +1,8 @@
-﻿using Task.Abstractions;
-using Task.Domain;
-using Task.Implementation.Figures;
+﻿using Task.Domain;
 
-namespace Task.Implementation;
+namespace FigureExample.Figure.Utils;
 
-public static class ShapeFactory
+public static class FigureFactory
 {
     private static readonly IReadOnlyDictionary<string, Func<double[], IFigure>> _figureDictionary =
         new Dictionary<string, Func<double[], IFigure>>()

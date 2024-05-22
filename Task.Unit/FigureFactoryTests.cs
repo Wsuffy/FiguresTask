@@ -1,21 +1,21 @@
-﻿using Task.Domain;
-using Task.Implementation;
-using Task.Implementation.Figures;
+﻿using FigureExample.Figure;
+using FigureExample.Figure.Utils;
+using Task.Domain;
 
 namespace MindBoxTask;
 
 [TestFixture]
-public class ShapeFactoryTests
+public class FigureFactoryTests
 {
-    [Test]
-    public void CreateFigure_Circle_ReturnsCircle()
+    [TestCase(5)]
+    [TestCase(7)]
+    [TestCase(18)]
+    public void CreateFigure_Circle_ReturnsCircle(int radius)
     {
-        var radius = 5;
-
-        var figure = ShapeFactory.CreateFigure(FigureDefaults.CIRCLE, radius);
+        var figure = FigureFactory.CreateFigure(FigureDefaults.CIRCLE, radius);
 
         var circle = figure as Circle;
-        
+
         Assert.Multiple(() =>
         {
             Assert.That(figure, Is.InstanceOf<Circle>());
@@ -23,32 +23,29 @@ public class ShapeFactoryTests
         });
     }
 
-    [Test]
-    public void CreateFigure_Rectangle_ReturnsRectangle()
+    [TestCase(4, 5)]
+    [TestCase(7, 11)]
+    [TestCase(4, 5)]
+    public void CreateFigure_Rectangle_ReturnsRectangle(int sideA, int sideB)
     {
-        var width = 4;
-        var height = 5;
-
-        var figure = ShapeFactory.CreateFigure(FigureDefaults.RECTANGLE, width, height);
+        var figure = FigureFactory.CreateFigure(FigureDefaults.RECTANGLE, sideA, sideB);
 
         var rectangle = figure as Rectangle;
 
         Assert.Multiple(() =>
         {
             Assert.That(figure, Is.InstanceOf<Rectangle>());
-            Assert.That(rectangle!.SideA, Is.EqualTo(width));
-            Assert.That(rectangle.SideB, Is.EqualTo(height));
+            Assert.That(rectangle!.SideA, Is.EqualTo(sideA));
+            Assert.That(rectangle.SideB, Is.EqualTo(sideB));
         });
     }
 
-    [Test]
-    public void CreateFigure_Triangle_ReturnsTriangle()
+    [TestCase(3, 4, 5)]
+    [TestCase(5, 6, 7)]
+    [TestCase(3, 3, 5)]
+    public void CreateFigure_Triangle_ReturnsTriangle(int sideA, int sideB, int sideC)
     {
-        var sideA = 3;
-        var sideB = 4;
-        var sideC = 5;
-
-        var figure = ShapeFactory.CreateFigure(FigureDefaults.TRIANGLE, sideA, sideB, sideC);
+        var figure = FigureFactory.CreateFigure(FigureDefaults.TRIANGLE, sideA, sideB, sideC);
 
         var triangle = figure as Triangle;
 
@@ -67,7 +64,7 @@ public class ShapeFactoryTests
         var figureName = "hexagon";
         var parameters = new double[] { 1, 2, 3, 4, 5, 6 };
 
-        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(figureName, parameters));
+        Assert.Throws<ArgumentException>(() => FigureFactory.CreateFigure(figureName, parameters));
     }
 
     [Test]
@@ -75,7 +72,7 @@ public class ShapeFactoryTests
     {
         var parameters = new double[] { 1, 2 };
 
-        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.CIRCLE, parameters));
+        Assert.Throws<ArgumentException>(() => FigureFactory.CreateFigure(FigureDefaults.CIRCLE, parameters));
     }
 
     [Test]
@@ -83,15 +80,14 @@ public class ShapeFactoryTests
     {
         var parameters = new double[] { 1 };
 
-        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.RECTANGLE, parameters));
+        Assert.Throws<ArgumentException>(() => FigureFactory.CreateFigure(FigureDefaults.RECTANGLE, parameters));
     }
 
     [Test]
     public void CreateFigure_InvalidTriangleParameters_ThrowsException()
     {
         var parameters = new double[] { 1, 2 };
-        
-        Assert.Throws<ArgumentException>(() => ShapeFactory.CreateFigure(FigureDefaults.TRIANGLE, parameters));
+
+        Assert.Throws<ArgumentException>(() => FigureFactory.CreateFigure(FigureDefaults.TRIANGLE, parameters));
     }
 }
-

@@ -1,4 +1,4 @@
-using Task.Implementation.Figures;
+using FigureExample.Figure;
 
 namespace MindBoxTask.Figures;
 
@@ -6,6 +6,8 @@ namespace MindBoxTask.Figures;
 public class CircleTests
 {
     [TestCase(5)]
+    [TestCase(10)]
+    [TestCase(11)]
     public void Circle_CalculateArea_ReturnsCorrectValue(double radius)
     {
         var circleArea = Math.PI * Math.Pow(radius, 2);

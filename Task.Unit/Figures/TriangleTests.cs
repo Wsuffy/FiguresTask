@@ -1,4 +1,4 @@
-﻿using Task.Implementation.Figures;
+﻿using FigureExample.Figure;
 
 namespace MindBoxTask.Figures;
 

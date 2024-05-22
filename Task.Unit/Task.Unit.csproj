@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Task.Implementation\Task.Implementation.csproj" />
+      <ProjectReference Include="..\FigureExample\FigureExample.csproj" />
     </ItemGroup>
 
 </Project>

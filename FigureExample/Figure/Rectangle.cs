@@ -1,6 +1,4 @@
-﻿using Task.Abstractions;
-
-namespace Task.Implementation.Figures;
+﻿namespace FigureExample.Figure;
 
 public class Rectangle : IFigure
 {
