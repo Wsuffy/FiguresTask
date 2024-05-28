@@ -1,4 +1,4 @@
-﻿namespace FigureExample;
+﻿namespace FigureExample.Abstractions;
 
 public interface IFigure
 {

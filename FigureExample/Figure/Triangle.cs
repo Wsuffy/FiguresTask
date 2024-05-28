@@ -1,4 +1,6 @@
-﻿namespace FigureExample.Figure;
+﻿using FigureExample.Abstractions;
+
+namespace FigureExample.Figure;
 
 public class Triangle : IFigure
 {
@@ -30,7 +32,7 @@ public class Triangle : IFigure
         var sideList = new List<double>(3) { SideA, SideB, SideC };
         sideList.Sort();
 
-        return Math.Pow(sideList[0], 2) + Math.Pow(sideList[1], 2) == Math.Pow(sideList[2], 2);
+        return Math.Abs(Math.Pow(sideList[0], 2) + Math.Pow(sideList[1], 2) - Math.Pow(sideList[2], 2)) < 2;
     }
 
     private bool IsValidTriangle() => SideA + SideB > SideC && SideA + SideC > SideB && SideB + SideC > SideA;

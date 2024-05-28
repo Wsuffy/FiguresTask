@@ -1,4 +1,6 @@
-﻿namespace FigureExample.Figure;
+﻿using FigureExample.Abstractions;
+
+namespace FigureExample.Figure;
 
 public class Rectangle : IFigure
 {
@@ -11,7 +13,7 @@ public class Rectangle : IFigure
         SideA = sideA;
         SideB = sideB;
         if (sideA <= 0 || sideB < 0)
-            throw new ArgumentException("You try to create wrong circle, your radius is less or equal 0",
+            throw new ArgumentException("You try to create wrong rectangle, your radius is less or equal 0",
                 $"{nameof(sideA)} or {nameof(sideB)}");
     }
 

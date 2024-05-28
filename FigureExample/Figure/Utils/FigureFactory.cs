@@ -1,4 +1,5 @@
-﻿using Task.Domain;
+﻿using FigureExample.Abstractions;
+using Task.Domain;
 
 namespace FigureExample.Figure.Utils;
 

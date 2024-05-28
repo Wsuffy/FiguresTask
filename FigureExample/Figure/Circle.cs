@@ -1,4 +1,6 @@
-﻿namespace FigureExample.Figure;
+﻿using FigureExample.Abstractions;
+
+namespace FigureExample.Figure;
 
 public class Circle : IFigure
 {
